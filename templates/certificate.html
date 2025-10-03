@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Certificate of Participation</title>
+  <style>
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: "Times New Roman", serif;
+      background: #fdfdfd;
+    }
+
+    .certificate-container {
+      border: 10px solid #2c3e50;
+      padding: 40px;
+      text-align: center;
+      width: 800px;
+      height: 600px;
+      margin: auto;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 40px;
+      margin-bottom: 0;
+      color: #2c3e50;
+    }
+
+    h2 {
+      font-size: 22px;
+      font-weight: normal;
+      margin: 10px 0 20px 0;
+    }
+
+    .participant-name {
+      font-size: 32px;
+      font-weight: bold;
+      margin: 20px 0;
+      color: #34495e;
+    }
+
+    .event-details {
+      font-size: 20px;
+      margin: 20px 0;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 30px;
+      left: 40px;
+      right: 40px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 16px;
+    }
+
+    .qr-code {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      width: 100px;
+      height: 100px;
+    }
+  </style>
+</head>
+<body>
+  <div class="certificate-container">
+    <h1>Certificate of Participation</h1>
+    <h2>This is proudly presented to</h2>
+
+    <div class="participant-name">{{name}}</div>
+
+    <div class="event-details">
+      For successfully participating in <b>{{event}}</b><br/>
+      Organized by <b>{{organizer}}</b> on <b>{{date}}</b>.
+    </div>
+
+    <div class="footer">
+      <div>____________________<br/>Organizer</div>
+      <div>____________________<br/>Head of Event</div>
+    </div>
+
+    <img src="{{qr_code}}" class="qr-code" alt="QR Code" />
+  </div>
+</body>
+</html>

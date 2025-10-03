@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EventEye - Certificate Automation</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <header>
+    <h1>🎉 EventEye Certificate Automation</h1>
+    <p>Generate & send personalized event certificates automatically.</p>
+  </header>
+
+  <main>
+    <!-- Create Event Form -->
+    <section id="create-event">
+      <h2>Create New Event</h2>
+      <form id="event-form">
+        <label>Event Name:
+          <input type="text" id="eventName" required />
+        </label>
+        <label>Date:
+          <input type="date" id="eventDate" required />
+        </label>
+        <label>Organizer:
+          <input type="text" id="organizerName" required />
+        </label>
+        <button type="submit">Create Event</button>
+      </form>
+    </section>
+
+    <!-- Upload Participants -->
+    <section id="upload-section">
+      <h2>Upload Participants (CSV)</h2>
+      <input type="file" id="csvUpload" accept=".csv" />
+      <button id="uploadBtn">Upload</button>
+    </section>
+
+    <!-- Dashboard Link -->
+    <section id="dashboard">
+      <h2>Dashboard</h2>
+      <button onclick="goToDashboard()">Go to Dashboard</button>
+    </section>''
+  </main>
+
+  <footer>
+    <p>© 2025 EventEye Hackathon Demo</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
