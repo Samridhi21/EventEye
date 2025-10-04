@@ -52,14 +52,25 @@ async function generateCertificate(participant, eventDetails) {
   const safeName = participant.name.replace(/[^a-zA-Z0-9_-]/g, "_");
   const filePath = path.join(outputDir, `${safeName}_certificate.pdf`);
 
-  // Puppeteer: render PDF
+    // Puppeteer: render PDF
   const browser = await puppeteer.launch({
-    headless: "new", // safer for newer versions
-    args: ["--no-sandbox", "--disable-setuid-sandbox"], // fixes on some systems
+    headless: true, // always headless
+    executablePath: puppeteer.executablePath(), // ✅ use built-in Chromium
+    args: [
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--disable-gpu",
+      "--disable-dev-shm-usage",
+      "--single-process",
+      "--no-zygote"
+    ],
   });
+
+
 
   const page = await browser.newPage();
   await page.setContent(filledHtml, { waitUntil: "networkidle0" });
+console.log("🖨 Rendering PDF for:", participant.name);
 
   await page.pdf({
     path: filePath,

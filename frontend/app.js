@@ -1,4 +1,9 @@
 // -----------------------------
+// Global State
+// -----------------------------
+let currentEventId = null; // store the event ID after creation
+
+// -----------------------------
 // Event Creation Form Handling
 // -----------------------------
 document.getElementById("event-form").addEventListener("submit", function (e) {
@@ -16,8 +21,13 @@ document.getElementById("event-form").addEventListener("submit", function (e) {
   })
     .then((res) => res.json())
     .then((data) => {
-      alert(`✅ Event Created: ${data.event.name}`);
-      console.log("Event Response:", data);
+      if (data.event) {
+        currentEventId = data.event.id; // ✅ save event ID
+        alert(`✅ Event Created: ${data.event.name} (ID: ${currentEventId})`);
+        console.log("Event Response:", data);
+      } else {
+        alert("❌ Failed to create event!");
+      }
     })
     .catch((err) => {
       console.error("Error:", err);
@@ -31,6 +41,10 @@ document.getElementById("event-form").addEventListener("submit", function (e) {
 document.getElementById("uploadBtn").addEventListener("click", function () {
   const fileInput = document.getElementById("csvUpload");
 
+  if (!currentEventId) {
+    alert("❌ Please create an event first!");
+    return;
+  }
   if (fileInput.files.length === 0) {
     alert("Please select a CSV file first!");
     return;
@@ -39,8 +53,7 @@ document.getElementById("uploadBtn").addEventListener("click", function () {
   const formData = new FormData();
   formData.append("file", fileInput.files[0]);
 
-  // For now we use Event ID = 1 (later we will dynamically use the created event ID)
-  fetch("http://localhost:5000/api/events/1/upload", {
+  fetch(`http://localhost:5000/api/events/${currentEventId}/upload`, {
     method: "POST",
     body: formData,
   })
@@ -56,9 +69,63 @@ document.getElementById("uploadBtn").addEventListener("click", function () {
 });
 
 // -----------------------------
+// Generate Certificates Handling
+// -----------------------------
+document.getElementById("generateBtn").addEventListener("click", function () {
+  if (!currentEventId) {
+    alert("❌ Please create an event first!");
+    return;
+  }
+
+  fetch(`http://localhost:5000/api/events/${currentEventId}/generate`, {
+    method: "POST",
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      alert("✅ Certificates generated!");
+      console.log("Generate Response:", data);
+    })
+    .catch((err) => {
+      console.error("Error:", err);
+      alert("❌ Failed to generate certificates!");
+    });
+});
+
+// -----------------------------
+// Send Certificates Handling
+// -----------------------------
+document.getElementById("sendBtn").addEventListener("click", function () {
+  if (!currentEventId) {
+    alert("❌ Please create an event first!");
+    return;
+  }
+
+  fetch(`http://localhost:5000/api/events/${currentEventId}/send`, {
+    method: "POST",
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      alert("📧 Email sending process finished!");
+      console.log("Send Response:", data);
+    })
+    .catch((err) => {
+      console.error("Error:", err);
+      alert("❌ Failed to send emails!");
+    });
+});
+
+// -----------------------------
 // Dashboard Navigation
 // -----------------------------
 function goToDashboard() {
-  alert("Dashboard page will open (Step 9)");
-  // Later we will link this to dashboard.html
+  if (!currentEventId) {
+    alert("❌ Please create an event first!");
+    return;
+  }
+
+  // Save eventId in localStorage so dashboard.html can use it
+  localStorage.setItem("currentEventId", currentEventId);
+
+  // Redirect to dashboard.html
+  window.location.href = "dashboard.html";
 }

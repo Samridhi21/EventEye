@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EventEye Dashboard</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <header>
+    <h1>📊 EventEye Dashboard</h1>
+    <p>View event details, participants, and statuses.</p>
+  </header>
+
+  <main>
+    <!-- Event Info -->
+    <section id="event-info">
+      <h2>Event Details</h2>
+      <div id="eventDetails"></div>
+    </section>
+
+    <!-- Participants -->
+    <section id="participants">
+      <h2>Participants</h2>
+      <table border="1" cellpadding="6">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="participantList">
+          <!-- Will be filled by JS -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 EventEye Hackathon Demo</p>
+  </footer>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>
